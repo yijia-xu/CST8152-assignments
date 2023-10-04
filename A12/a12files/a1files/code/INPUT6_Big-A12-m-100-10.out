@@ -1,0 +1,45 @@
+/*
+************************************************************
+* COMPILERS COURSE - Algonquin College
+* Code version: Fall, 2023
+* Author: TO_DO
+* Professors: Paulo Sousa
+************************************************************
+=---------------------------------------=
+|  COMPILERS - ALGONQUIN COLLEGE (F23)  |
+=---------------------------------------=
+
+_|          _|_|    _|      _|    _|_|
+_|        _|    _|  _|_|    _|  _|    _|
+_|        _|_|_|_|  _|  _|  _|  _|_|_|_|
+_|        _|    _|  _|    _|_|  _|    _|
+_|_|_|_|  _|    _|  _|      _|  _|    _|
+*/
+
+[Option 'r': Starting READER .....]
+
+Reading file INPUT6_Big.lan ....Please wait
+The input file INPUT6_Big.lan has not been completely loaded.
+Current size of buffer: 100.
+Last character read from the input file is: 
+ 10
+Input file size: 32533
+
+Printing buffer parameters:
+
+The capacity of the buffer is:  100
+The current size of the buffer is:  90
+The operational mode of the buffer is: m
+The increment factor of the buffer is:  100
+The first symbol in the buffer is:  #
+The value of the flags field is: 02
+Reader statistics : 
+B['
+']=2, B[' ']=16, B['"']=2, B['#']=2, B['E']=1, B['S']=1, B['T']=1, B['a']=7, B['c']=3, B['d']=2, B['e']=8, B['f']=1, B['g']=2, B['h']=2, B['i']=3, B['l']=5, B['m']=2, B['n']=4, B['o']=6, B['p']=2, B['r']=8, B['s']=2, B['t']=3, B['u']=1, B['x']=2, B['y']=2, 
+Number of errors: 0
+
+Printing buffer contents:
+
+# Sofia Example
+  The program is "lexically" correct
+  and should not generate any error #

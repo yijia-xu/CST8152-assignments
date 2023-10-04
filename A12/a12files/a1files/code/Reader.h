@@ -86,7 +86,7 @@ enum READER_MODE {
 /* CONSTANTS DEFINITION: PREFIXED BY LANGUAGE NAME (SOFIA) .................................. */
 
 /* You should add your own constant definitions here */
-#define READER_MAX_SIZE	INT_MAX-1	/* maximum capacity */ 
+#define READER_MAX_SIZE	INT_MAX				/* maximum capacity */ 
 
 #define READER_DEFAULT_SIZE			250		/* default initial buffer reader capacity */
 #define READER_DEFAULT_INCREMENT	10		/* default increment factor */
@@ -95,9 +95,13 @@ enum READER_MODE {
 /* BITS                                (7654.3210) */
 #define READER_DEFAULT_FLAG 0x00 	/* (0000.0000)_2 = (000)_10 */
 /* TO_DO: BIT 3: END = End of buffer flag */
+#define READER_END_FLAG 0x08
 /* TO_DO: BIT 2: REL = Rellocation memory flag */
+#define READER_REL_FLAG 0x04
 /* TO_DO: BIT 1: EMP = Buffer empty flag */
+#define READER_EMP_FLAG 0x02
 /* TO_DO: BIT 0: FUL = Buffer full flag */
+#define READER_FUL_FLAG 0x01
 
 #define NCHAR				128			/* Chars from 0 to 127 */
 
@@ -109,48 +113,48 @@ enum READER_MODE {
 
 /* Offset declaration */
 typedef struct position {
-	sofia_intg mark;			/* the offset to the mark position (in chars) */
-	sofia_intg read;			/* the offset to the get a char position (in chars) */
-	sofia_intg wrte;			/* the offset to the add chars (in chars) */
+	lana_int mark;			/* the offset to the mark position (in chars) */
+	lana_int read;			/* the offset to the get a char position (in chars) */
+	lana_int wrte;			/* the offset to the add chars (in chars) */
 } Position;
 
 /* Buffer structure */
 typedef struct bufferReader {
-	sofia_string	content;			/* pointer to the beginning of character array (character buffer) */
-	sofia_intg		size;				/* current dynamic memory size (in bytes) allocated to character buffer */
-	sofia_intg		increment;			/* character array increment factor */
-	sofia_intg		mode;				/* operational mode indicator */
-	sofia_byte		flags;				/* contains character array reallocation flag and end-of-buffer flag */
+	lana_string		content;			/* pointer to the beginning of character array (character buffer) */
+	lana_int		size;				/* current dynamic memory size (in bytes) allocated to character buffer */
+	lana_int		increment;			/* character array increment factor */
+	lana_int		mode;				/* operational mode indicator */
+	lana_int		flags;				/* contains character array reallocation flag and end-of-buffer flag */
 	Position		position;				/* Offset / position field */
-	sofia_intg		histogram[NCHAR];	/* Statistics of chars */
-	sofia_intg		numReaderErrors;	/* Number of errors from Reader */
+	lana_int		histogram[NCHAR];	/* Statistics of chars */
+	lana_int		numReaderErrors;	/* Number of errors from Reader */
 } Buffer, *BufferPointer;
 
 /* FUNCTIONS DECLARATION:  .................................. */
 /* General Operations */
-BufferPointer	readerCreate		(sofia_intg, sofia_intg, sofia_intg);
-BufferPointer	readerAddChar		(BufferPointer const, sofia_char);
-sofia_boln		readerClear		    (BufferPointer const);
-sofia_boln		readerFree		    (BufferPointer const);
-sofia_boln		readerIsFull		(BufferPointer const);
-sofia_boln		readerIsEmpty		(BufferPointer const);
-sofia_boln		readerSetMark		(BufferPointer const, sofia_intg);
-sofia_intg		readerPrint		    (BufferPointer const);
-sofia_intg		readerLoad			(BufferPointer const, FILE* const);
-sofia_boln		readerRecover		(BufferPointer const);
-sofia_boln		readerRetract		(BufferPointer const);
-sofia_boln		readerRestore		(BufferPointer const);
+BufferPointer	readerCreate		(lana_int, lana_int, lana_int);
+BufferPointer	readerAddChar		(BufferPointer const, lana_char);
+lana_int		readerClear		    (BufferPointer const);
+lana_int		readerFree		    (BufferPointer const);
+lana_int		readerIsFull		(BufferPointer const);
+lana_int		readerIsEmpty		(BufferPointer const);
+lana_int		readerSetMark		(BufferPointer const, lana_int);
+lana_int		readerPrint		    (BufferPointer const);
+lana_int		readerLoad			(BufferPointer const, FILE* const);
+lana_int		readerRecover		(BufferPointer const);
+lana_int		readerRetract		(BufferPointer const);
+lana_int		readerRestore		(BufferPointer const);
 /* Getters */
-sofia_char		readerGetChar		(BufferPointer const);
-sofia_string	readerGetContent	(BufferPointer const, sofia_intg);
-sofia_intg		readerGetPosRead	(BufferPointer const);
-sofia_intg		readerGetPosWrte	(BufferPointer const);
-sofia_intg		readerGetPosMark	(BufferPointer const);
-sofia_intg		readerGetSize		(BufferPointer const);
-sofia_intg		readerGetInc		(BufferPointer const);
-sofia_intg		readerGetMode		(BufferPointer const);
-sofia_byte		readerGetFlags		(BufferPointer const);
-sofia_void		readerPrintStat		(BufferPointer const);
-sofia_intg		readerNumErrors		(BufferPointer const);
+lana_char		readerGetChar		(BufferPointer const);
+lana_string		readerGetContent	(BufferPointer const, lana_int);
+lana_int		readerGetPosRead	(BufferPointer const);
+lana_int		readerGetPosWrte	(BufferPointer const);
+lana_int		readerGetPosMark	(BufferPointer const);
+lana_int		readerGetSize		(BufferPointer const);
+lana_int		readerGetInc		(BufferPointer const);
+lana_int		readerGetMode		(BufferPointer const);
+lana_int		readerGetFlags		(BufferPointer const);
+lana_void		readerPrintStat		(BufferPointer const);
+lana_int		readerNumErrors		(BufferPointer const);
 
 #endif

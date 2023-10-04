@@ -1,0 +1,3 @@
+C:/CST8152/A12/a12files/a1files/code/out/build/x64-Debug/CMakeFiles/Lana.dir
+C:/CST8152/A12/a12files/a1files/code/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/CST8152/A12/a12files/a1files/code/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir

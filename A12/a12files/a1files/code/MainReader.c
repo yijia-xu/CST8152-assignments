@@ -8,31 +8,13 @@
 =---------------------------------------=
 |  COMPILERS - ALGONQUIN COLLEGE (F23)  |
 =---------------------------------------=
-|              ....                     |
-|          ........::.::::::.           |
-|        .:........::.:^^^~~~:          |
-|        :^^::::::^^^::^!7??7~^.        |
-|       .:^~~^!77777~~7?YY?7??7^.       |
-|       :.^~!??!^::::^^~!?5PY??!~.      |
-|       ~!!7J~.:::^^^^~!!~~?G5J?~       |
-|       :^~?!~7?Y57^^?PP5YJ!J5Y?:       |
-|       .~!!.:^!7!:.:7JYYJ7~7Y7^        |
-|       .~77..    . .~^:^^^~7?:         |
-|       .^!^~:::.:^!7?~^~!77J:          |
-|        ^^!Y~^^^^~?YJ77??7JJ^          |
-|       .^7J?~^~~^~7??7??7JY?~:         |
-|        ::^^~^7?!^~~!7???J?J7~:.       |
-|         ^~~!.^7YPPPP5Y?7J7777~.       |
-|        ..:~..:^!JPP5YJ?!777!^.        |
-| .~?JJJJJJJJJJYYYYYPPPPPPPPPPPP5PPYY~  |
-|  :!Y5GGG.___ YYYYYY__._.PPGGGGGG5!.   |
-|   :!Y5G / __| ___ / _(_)__ _ PGP5.    |
-|    :~75 \__ \/ _ \  _| / _` | 5?.     |
-|     7~7 |___/\___/_| |_\__,_| Y5?.    |
-|    .^~!~.....................P5YY7.   |
-|   .:::::::::::::?JJJJYYYYYYYYYJJJJ7.  |
-|                                       |
-=---------------------------------------=
+
+
+_|          _|_|    _|      _|    _|_|
+_|        _|    _|  _|_|    _|  _|    _|
+_|        _|_|_|_|  _|  _|  _|  _|_|_|_|
+_|        _|    _|  _|    _|_|  _|    _|
+_|_|_|_|  _|    _|  _|      _|  _|    _|
 */
 
 /*
@@ -95,11 +77,11 @@
  *  Function declarations
  * -------------------------------------------------------------
  */
-sofia_void bErrorPrint(sofia_string fmt, ...);
-sofia_void displayBuffer(Buffer* ptr_Buffer);
-sofia_long getFileSize(sofia_string fname);
-sofia_intg isNumber(const sofia_string ns);
-sofia_void startReader(sofia_string, sofia_string, sofia_char, sofia_intg, sofia_intg);
+lana_void bErrorPrint(lana_string fmt, ...);
+lana_void displayBuffer(Buffer* ptr_Buffer);
+lana_long getFileSize(lana_string fname);
+lana_int isNumber(const lana_string ns);
+lana_void startReader(lana_string, lana_string, lana_char, lana_int, lana_int);
 
 /*
 ************************************************************
@@ -111,13 +93,13 @@ sofia_void startReader(sofia_string, sofia_string, sofia_char, sofia_intg, sofia
 ************************************************************
 */
 
-sofia_intg mainReader(sofia_intg argc, sofia_string* argv) {
+lana_int mainReader(lana_int argc, lana_string* argv) {
 
 	/* Create source input buffer */
-	sofia_string program = argv[0];
-	sofia_string input = argv[2];
-	sofia_char mode = MODE_FIXED;
-	sofia_intg size = 0, increment = 0, wrongNumber = 0;
+	lana_string program = argv[0];
+	lana_string input = argv[2];
+	lana_char mode = MODE_FIXED;
+	lana_int size = 0, increment = 0, wrongNumber = 0;
 
 	/* Missing file name or/and mode parameter */
 	if (argc <= 2) {
@@ -169,12 +151,12 @@ sofia_intg mainReader(sofia_intg argc, sofia_string* argv) {
 *	- Increment: buffer increment.
 ************************************************************
 */
-sofia_void startReader(sofia_string program, sofia_string input, sofia_char mode, sofia_intg size, sofia_intg increment) {
+lana_void startReader(lana_string program, lana_string input, lana_char mode, lana_int size, lana_int increment) {
 
 	BufferPointer bufferp;		/* pointer to Buffer structure */
 	FILE* fileHandler;			/* input file handle */
-	sofia_intg loadSize = 0;		/* the size of the file loaded in the buffer */
-	sofia_char symbol;			/* symbol read from input file */
+	lana_int loadSize = 0;		/* the size of the file loaded in the buffer */
+	lana_char symbol;			/* symbol read from input file */
 
 	/* Create buffer */
 	bufferp = readerCreate(size, (char)increment, mode);
@@ -232,12 +214,12 @@ sofia_void startReader(sofia_string program, sofia_string input, sofia_char mode
 ************************************************************
 */
 
-sofia_void bErrorPrint(sofia_string fmt, ...) {
+lana_void bErrorPrint(lana_string fmt, ...) {
 	/* Initialize variable list */
 	va_list ap;
 	va_start(ap, fmt);
 
-	(sofia_void)vfprintf(stderr, fmt, ap);
+	(lana_void)vfprintf(stderr, fmt, ap);
 	va_end(ap);
 
 	/* Move to new line */
@@ -253,9 +235,9 @@ sofia_void bErrorPrint(sofia_string fmt, ...) {
 ************************************************************
 */
 
-sofia_long getFileSize(sofia_string fname) {
+lana_long getFileSize(lana_string fname) {
 	FILE* input;
-	sofia_long flength;
+	lana_long flength;
 	input = fopen(fname, "r");
 	if (input == NULL) {
 		bErrorPrint("%s%s", "Cannot open file: ", fname);
@@ -277,8 +259,8 @@ sofia_long getFileSize(sofia_string fname) {
 ************************************************************
 */
 
-sofia_intg isNumber(const sofia_string ns) {
-	sofia_char c; sofia_intg i = 0;
+lana_int isNumber(const lana_string ns) {
+	lana_char c; lana_int i = 0;
 	if (ns == NULL) return 0;
 	while ((c = ns[i++]) == 0) {
 		if (!isdigit(c)) return 0;
@@ -293,7 +275,7 @@ sofia_intg isNumber(const sofia_string ns) {
 ************************************************************
 */
 
-sofia_void displayBuffer(Buffer* ptr_Buffer) {
+lana_void displayBuffer(Buffer* ptr_Buffer) {
 	printf("\nPrinting buffer parameters:\n\n");
 	printf("The capacity of the buffer is:  %d\n",
 		readerGetSize(ptr_Buffer));
