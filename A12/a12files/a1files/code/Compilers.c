@@ -2,7 +2,7 @@
 ************************************************************
 * COMPILERS COURSE - Algonquin College
 * Code version: Fall, 2023
-* Author: TO_DO
+* Author: Yijia Xu 041061204
 * Professors: Paulo Sousa
 ************************************************************
 =---------------------------------------=
@@ -112,7 +112,7 @@ lana_void printLogo() {
 	printf("************************************************************\n");
 	printf("* COMPILERS COURSE - Algonquin College\n");
 	printf("* Code version: Fall, 2023\n");
-	printf("* Author: TO_DO\n");
+	printf("* Author: Yijia Xu 041061204\n");
 	printf("* Professors: Paulo Sousa\n");
 	printf("************************************************************\n");
 	printf("=---------------------------------------=\n");

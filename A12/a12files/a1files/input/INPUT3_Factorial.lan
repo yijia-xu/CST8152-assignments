@@ -1,8 +1,7 @@
-/* Lana Example 3:
-  Testing numbers (ex: factorial) */
+/* Lana Example 4: 
+   Testing numbers (ex: factorial) */
 lana_int main() {
      int i, n, f;
-
      f=1;
      i=1;
      printf("Write a number:");

@@ -1,13 +1,10 @@
-# Sofia Example 3:
-  Volume of a sphere #
-main& {
-	data {
-		real PI%, r%, Vol%;
-	}
-	code {
-		PI% = 3.14;
-		input&(r%);
-		Vol% = 4.0 / 3.0 * PI% * (r% * r% * r%);
-		print&(Vol%);
-	}
+/* Lana Example 3:
+  Volume of a sphere */
+lana_int main() {
+	lana_float r, Vol;
+	lana_float const PI;
+	PI = 3.14;
+	scanf(r);
+	Vol = 4.0 / 3.0 * PI * (r * r * r);
+	printf(Vol);
 }

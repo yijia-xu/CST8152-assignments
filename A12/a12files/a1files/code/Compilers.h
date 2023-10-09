@@ -2,7 +2,7 @@
 ************************************************************
 * COMPILERS COURSE - Algonquin College
 * Code version: Fall, 2023
-* Author: TO_DO
+* Author: Yijia Xu 041061204
 * Professors: Paulo Sousa
 ************************************************************
 =---------------------------------------=
@@ -113,7 +113,7 @@ Main functions signatures
 (Code will be updated during next assignments)
 ------------------------------------------------------------
 */
-lana_int mainReader(lana_int argc, lana_string* argv);
+lana_int main(int argc, char** argv);
 
 /* 
 TO_DO: Include later mainScaner (A22) and mainParser (A32)

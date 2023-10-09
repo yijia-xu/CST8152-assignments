@@ -2,7 +2,7 @@
 ************************************************************
 * COMPILERS COURSE - Algonquin College
 * Code version: Fall, 2023
-* Author: TO_DO
+* Author: Yijia Xu 041061204
 * Professors: Paulo Sousa
 ************************************************************
 =---------------------------------------=
@@ -123,8 +123,8 @@ lana_int mainReader(lana_int argc, lana_string* argv) {
 	/* Read additional parameters, if any */
 	if (argc == 6) {
 		mode = *argv[3];
-		if (isNumber(argv[4]))size = (short)atoi(argv[4]); else wrongNumber = 1;
-		if (isNumber(argv[5]))increment = (short)atoi(argv[5]); else wrongNumber = 1;
+		if (isNumber(argv[4]))size = (lana_int)atoi(argv[4]); else wrongNumber = 1;
+		if (isNumber(argv[5]))increment = (lana_int)atoi(argv[5]); else wrongNumber = 1;
 		if (wrongNumber) {
 			bErrorPrint("\nDate: %s  Time: %s", __DATE__, __TIME__);
 			bErrorPrint("\nRuntime error at line %d in file %s\n", __LINE__, __FILE__);
@@ -159,7 +159,7 @@ lana_void startReader(lana_string program, lana_string input, lana_char mode, la
 	lana_char symbol;			/* symbol read from input file */
 
 	/* Create buffer */
-	bufferp = readerCreate(size, (char)increment, mode);
+	bufferp = readerCreate(size, (lana_char)increment, mode);
 
 	if (bufferp == NULL) {
 		bErrorPrint("%s%s", program,
@@ -182,7 +182,7 @@ lana_void startReader(lana_string program, lana_string input, lana_char mode, la
 	if (loadSize == READER_ERROR) {
 		printf("The input file %s %s\n", input, "has not been completely loaded.");
 		printf("Current size of buffer: %d.\n", readerGetSize(bufferp));
-		symbol = (char)fgetc(fileHandler);
+		symbol = (lana_char)fgetc(fileHandler);
 		printf("Last character read from the input file is: %c %d\n", symbol, symbol);
 		printf("Input file size: %ld\n", getFileSize(input));
 	}

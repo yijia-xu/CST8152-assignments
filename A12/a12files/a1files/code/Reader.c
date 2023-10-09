@@ -2,7 +2,7 @@
 ************************************************************
 * COMPILERS COURSE - Algonquin College
 * Code version: Fall, 2023
-* Author: TO_DO
+* Author: Yijia Xu 041061204
 * Professors: Paulo Sousa
 ************************************************************
 =---------------------------------------=
@@ -69,38 +69,34 @@ _|_|_|_|  _|    _|  _|      _|  _|    _|
 
 BufferPointer readerCreate(lana_int size, lana_int increment, lana_int mode) {
 	BufferPointer readerPointer;
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Adjust the values according to parameters */
-	if ((!size) || (size < 0))
-		return NULL;
-	if (size == 0)
-		size = READER_DEFAULT_SIZE;
-	if (increment <=0)
-		mode = MODE_FIXED;
-	if (mode != MODE_FIXED && mode != MODE_ADDIT && mode != MODE_MULTI)
-		return NULL;
-
 	readerPointer = (BufferPointer)calloc(1, sizeof(Buffer));
-
+	/* TO_DO: Adjust the values according to parameters */
 	if (!readerPointer)
 		return NULL;
+	/* TO_DO: Defensive programming */
 
-	readerPointer->content = (lana_string)malloc(sizeof(lana_char)* size);
+	if (size<=0)
+		size = READER_DEFAULT_SIZE;
+	if (increment <= 0)
+		readerPointer->increment = READER_DEFAULT_INCREMENT;
+	if (mode != MODE_FIXED && mode != MODE_ADDIT && mode != MODE_MULTI)
+		mode = MODE_FIXED;
+
+	readerPointer->content = (lana_string)malloc(size);
 
 	if (!readerPointer->content) {
-		free(readerPointer);
 		return NULL;
 	}
 
 	/* TO_DO: Initialize the histogram */
 	for (int i = 0; i < NCHAR; i++) {
-		readerPointer->histogram[i] = 0; // (?)
+		readerPointer->histogram[i] = 0;
 	}
 
 	/* TO_DO: Initialize flags */
-	readerPointer->flags = READER_EMP_FLAG;
-
+	readerPointer->flags = READER_DEFAULT_FLAG;
 	/* TO_DO: The created flag must be signalized as EMP */
+	readerPointer->flags |= READER_EMP_FLAG;
 	/* NEW: Cleaning the content */
 	readerPointer->size = size;
 	readerPointer->increment = increment;
@@ -139,50 +135,43 @@ BufferPointer readerAddChar(BufferPointer const readerPointer, lana_char ch) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return NULL;
-	/* TO_DO: Test the inclusion of chars */
 	if (ch<0 || ch>127)
 		return NULL;
 
-	/* TO_DO: This buffer is NOT full */
-	if (readerPointer->increment >= readerPointer->size) {
-		readerPointer->flags &= ~READER_REL_FLAG;
-		/* TO_DO: Reset Full flag */
+	readerPointer->flags &= !READER_REL_FLAG;
+	/* TO_DO: Test the inclusion of chars */
+	if (readerPointer->position.wrte * (lana_int)sizeof(lana_char) < readerPointer->size) {
+		/* TO_DO: This buffer is NOT full */
+
+	} else {
 		switch (readerPointer->mode) {
 		case MODE_FIXED:
 			return NULL;
 		case MODE_ADDIT:
 			newSize = readerPointer->size + readerPointer->increment;
 			/* TO_DO: Defensive programming */
-			if ((newSize >= 0) && (newSize < READER_MAX_SIZE))
-				newSize = READER_MAX_SIZE;
-			else
+			if (newSize < readerPointer->size)
 				return NULL;
 			break;
 		case MODE_MULTI:
 			newSize = readerPointer->size * readerPointer->increment;
 
 			/* TO_DO: Defensive programming */
-			if ((newSize >= 0) && (newSize < READER_MAX_SIZE))
-				newSize = READER_MAX_SIZE;
-			else
+			if (newSize < readerPointer->size)
 				return NULL;
 			break;
 		default:
 			return NULL;
 		}
-		if (newSize < 0 || newSize >= READER_MAX_SIZE)
-			return NULL;
 		/* TO_DO: New reader allocation */
-		tempReader = (lana_string)realloc(readerPointer->content, sizeof(lana_char)*newSize);
+		tempReader = realloc(readerPointer->content, newSize);
 
 		/* TO_DO: Defensive programming */
 		if (!tempReader)
 			return NULL;
-
 		/* TO_DO: Check Relocation */
 		if (tempReader != readerPointer->content)
-			readerPointer->flags = READER_REL_FLAG;
-
+			readerPointer->flags |= READER_REL_FLAG;
 		readerPointer->content = tempReader;
 		readerPointer->size = newSize;
 	}
@@ -191,7 +180,7 @@ BufferPointer readerAddChar(BufferPointer const readerPointer, lana_char ch) {
 	readerPointer->content[readerPointer->position.wrte++] = ch;
 	/* TO_DO: Updates histogram */
 	readerPointer->histogram[ch]++;
-	readerPointer->increment++;
+
 	return readerPointer;
 }
 
@@ -212,7 +201,7 @@ BufferPointer readerAddChar(BufferPointer const readerPointer, lana_char ch) {
 lana_int readerClear(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
-		return NULL;
+		return LANA_FALSE;
 	/* TO_DO: Adjust flags original */
 	readerPointer->flags = READER_DEFAULT_FLAG;
 	readerPointer->position.wrte = readerPointer->position.mark = readerPointer->position.read = 0;
@@ -236,7 +225,7 @@ lana_int readerClear(BufferPointer const readerPointer) {
 lana_int readerFree(BufferPointer const readerPointer) {
 	/* Defensive programming */
 	if (!readerPointer)
-		return NULL;
+		return LANA_FALSE;
 	/* Free pointers */
 	free(readerPointer->content);
 	free(readerPointer);
@@ -260,7 +249,7 @@ lana_int readerFree(BufferPointer const readerPointer) {
 lana_int readerIsFull(BufferPointer const readerPointer) {
 	/* Defensive programming */
 	if (!readerPointer)
-		return NULL;
+		return LANA_FALSE;
 	/* Check flag if buffer is FUL */
 	if ((readerPointer->increment) * (sizeof(lana_string)) == readerPointer->size) {
 		readerPointer->flags = READER_FUL_FLAG;
@@ -287,7 +276,7 @@ lana_int readerIsFull(BufferPointer const readerPointer) {
 lana_int readerIsEmpty(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
-		return NULL;
+		return LANA_FALSE;
 
 	/* TO_DO: Check flag if buffer is EMP */
 	if (readerPointer->position.wrte == 0) {
@@ -316,7 +305,7 @@ lana_int readerIsEmpty(BufferPointer const readerPointer) {
 lana_int readerSetMark(BufferPointer const readerPointer, lana_int mark) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
-		return NULL;
+		return LANA_FALSE;
 	/* TO_DO: Adjust mark */
 	if (mark >= 0 && mark <= readerPointer->position.wrte)
 		readerPointer->position.mark = mark;
@@ -351,6 +340,9 @@ lana_int readerPrint(BufferPointer const readerPointer) {
 
 	/* TO_DO: Check flag if buffer EOB has achieved */
 	while (cont < readerPointer->position.wrte) {
+		if (readerPointer->flags == READER_END_FLAG) {
+			break;
+		}
 		cont++;
 		printf("%c", c);
 		c = readerGetChar(readerPointer);
@@ -414,7 +406,7 @@ lana_int readerLoad(BufferPointer const readerPointer, FILE* const fileDescripto
 lana_int readerRecover(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
-		return NULL;
+		return LANA_FALSE;
 
 	/* TO_DO: Recover positions */
 	readerPointer->position.read = 0;
@@ -440,7 +432,7 @@ lana_int readerRecover(BufferPointer const readerPointer) {
 lana_int readerRetract(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer || readerPointer->position.read <= 0)
-		return NULL;
+		return LANA_FALSE;
 	else
 		readerPointer->position.read--;
 
@@ -465,7 +457,7 @@ lana_int readerRetract(BufferPointer const readerPointer) {
 lana_int readerRestore(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer || readerPointer->position.mark < 0)
-		return NULL;
+		return LANA_FALSE;
 	/* TO_DO: Restore positions (read/mark) */
 	readerPointer->position.read = readerPointer->position.mark;
 	return LANA_TRUE;

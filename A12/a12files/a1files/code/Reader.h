@@ -2,7 +2,7 @@
 ************************************************************
 * COMPILERS COURSE - Algonquin College
 * Code version: Fall, 2023
-* Author: TO_DO
+* Author: Yijia Xu 041061204
 * Professors: Paulo Sousa
 ************************************************************
 =---------------------------------------=
