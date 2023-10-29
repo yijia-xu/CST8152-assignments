@@ -1,0 +1,53 @@
+/*
+************************************************************
+* COMPILERS COURSE - Algonquin College
+* Code version: Fall, 2023
+* Author: Yijia Xu 041061204
+* Professors: Paulo Sousa
+************************************************************
+=---------------------------------------=
+|  COMPILERS - ALGONQUIN COLLEGE (F23)  |
+=---------------------------------------=
+
+_|          _|_|    _|      _|    _|_|
+_|        _|    _|  _|_|    _|  _|    _|
+_|        _|_|_|_|  _|  _|  _|  _|_|_|_|
+_|        _|    _|  _|    _|_|  _|    _|
+_|_|_|_|  _|    _|  _|      _|  _|    _|
+*/
+
+[Option 'r': Starting READER .....]
+
+Reading file INPUT5_General.lan ....Please wait
+The input file INPUT5_General.lan has not been completely loaded.
+Current size of buffer: 250.
+Last character read from the input file is: % 37
+Input file size: 687
+
+Printing buffer parameters:
+
+The capacity of the buffer is:  250
+The current size of the buffer is:  250
+The operational mode of the buffer is: f
+The increment factor of the buffer is:  0
+The first symbol in the buffer is:  #
+The value of the flags field is: 00
+Reader statistics : 
+B['	']=15, B['
+']=11, B[' ']=29, B['"']=2, B['#']=2, B['$']=1, B['%']=5, B['&']=2, B['(']=2, B[')']=1, B['+']=1, B[',']=2, B['.']=2, B['0']=8, B['1']=1, B['2']=1, B['5']=1, B['7']=2, B['8']=4, B[';']=5, B['=']=2, B['@']=1, B['E']=1, B['P']=1, B['R']=1, B['S']=2, B['T']=1, B['a']=17, B['b']=1, B['c']=4, B['d']=5, B['e']=14, B['f']=2, B['g']=3, B['h']=2, B['i']=9, B['l']=9, B['m']=7, B['n']=11, B['o']=9, B['p']=4, B['r']=11, B['s']=8, B['t']=10, B['u']=6, B['v']=2, B['x']=3, B['y']=3, B['{']=3, B['}']=1, 
+Number of errors: 0
+
+Printing buffer contents:
+
+# Sofia Example
+The program is "lexically" correct and should not generate any error (based on Platypus from Svillen Ranev) #
+main& {
+	data {
+		int i$;
+		real a%, sum008%;
+		string text@;
+	}
+	code {
+		a%=+1.2;
+		sum008% = 7.87050 ;
+		input&(a%,sum008

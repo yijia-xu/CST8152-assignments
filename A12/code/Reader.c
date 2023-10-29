@@ -163,7 +163,9 @@ BufferPointer readerAddChar(BufferPointer const readerPointer, lana_char ch) {
 		default:
 			return NULL;
 		}
-		/* TO_DO: New reader allocation */
+		/* TO_DO: New reader 
+		
+		*/
 		tempReader = realloc(readerPointer->content, newSize);
 
 		/* TO_DO: Defensive programming */

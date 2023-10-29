@@ -1,0 +1,56 @@
+/*
+************************************************************
+* COMPILERS COURSE - Algonquin College
+* Code version: Fall, 2023
+* Author: Yijia Xu 041061204
+* Professors: Paulo Sousa
+************************************************************
+=---------------------------------------=
+|  COMPILERS - ALGONQUIN COLLEGE (F23)  |
+=---------------------------------------=
+
+_|          _|_|    _|      _|    _|_|
+_|        _|    _|  _|_|    _|  _|    _|
+_|        _|_|_|_|  _|  _|  _|  _|_|_|_|
+_|        _|    _|  _|    _|_|  _|    _|
+_|_|_|_|  _|    _|  _|      _|  _|    _|
+*/
+
+[Option 'r': Starting READER .....]
+
+Reading file INPUT4_Datatypes.lan ....Please wait
+The input file INPUT4_Datatypes.lan has not been completely loaded.
+Current size of buffer: 250.
+Last character read from the input file is: r 114
+Input file size: 290
+
+Printing buffer parameters:
+
+The capacity of the buffer is:  250
+The current size of the buffer is:  250
+The operational mode of the buffer is: f
+The increment factor of the buffer is:  0
+The first symbol in the buffer is:  /
+The value of the flags field is: 00
+Reader statistics : 
+B['	']=8, B['
+']=14, B[' ']=24, B['"']=2, B['(']=1, B[')']=1, B['*']=2, B[',']=1, B['-']=1, B['.']=2, B['/']=2, B['0']=5, B['1']=1, B['2']=1, B['4']=1, B['7']=2, B['8']=1, B['9']=1, B[';']=7, B['=']=4, B['A']=4, B['B']=1, B['C']=2, B['D']=2, B['E']=1, B['F']=2, B['H']=2, B['I']=2, B['L']=2, B['N']=3, B['T']=1, B['Y']=2, B['_']=4, B['a']=25, B['b']=1, B['c']=4, B['d']=2, B['e']=11, B['f']=1, B['g']=3, B['h']=2, B['i']=9, B['l']=10, B['m']=5, B['n']=15, B['o']=10, B['p']=3, B['r']=12, B['s']=2, B['t']=12, B['u']=6, B['x']=2, B['y']=5, B['{']=1, 
+Number of errors: 0
+
+Printing buffer contents:
+
+/*
+Lana Example
+The program is lexically correct about the LANA city 
+*/
+lana_int main() {
+	lana_int FoundationYear;
+	lana_float Area, HDI;
+	lana_string CountryName;
+
+
+	FoundationYear = -7000;
+	Area = 492.0;
+	HDI = 0.871;
+	CountryName = "Bulgary";
+	p

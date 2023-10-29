@@ -1,0 +1,17 @@
+/*
+Lana Example
+The program is lexically correct about the LANA city 
+*/
+lana_int main() {
+	lana_int FoundationYear;
+	lana_float Area, HDI;
+	lana_string CountryName;
+
+
+	FoundationYear = -7000;
+	Area = 492.0;
+	HDI = 0.871;
+	CountryName = "Bulgary";
+	printf(CountryName);
+
+}
