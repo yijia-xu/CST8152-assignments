@@ -61,8 +61,8 @@ _|_|_|_|  _|    _|  _|      _|  _|    _|
 *************************************************************
 */
 
-lana_int main(int argc, char** argv) {
-	lana_int i;
+int32 main(int argc, char** argv) {
+	int32 i;
 	printLogo();
 	if (DEBUG) {
 		for (i = 0; i < argc; ++i)
@@ -75,7 +75,7 @@ lana_int main(int argc, char** argv) {
 			PGM_PARSER, "] - Parser\n");
 		return EXIT_FAILURE;
 	}
-	lana_char option = argv[1][0];
+	rune option = argv[1][0];
 	switch (option) {
 	case PGM_READER:
 		printf("%s%c%s", "\n[Option '", PGM_READER, "': Starting READER .....]\n\n");
@@ -107,7 +107,7 @@ lana_int main(int argc, char** argv) {
 
 /* TO_DO: Update your logo with your own language message */
 
-lana_void printLogo() {
+void printLogo() {
 	printf("/*\n");
 	printf("************************************************************\n");
 	printf("* COMPILERS COURSE - Algonquin College\n");

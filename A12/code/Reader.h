@@ -113,48 +113,48 @@ enum READER_MODE {
 
 /* Offset declaration */
 typedef struct position {
-	lana_int mark;			/* the offset to the mark position (in chars) */
-	lana_int read;			/* the offset to the get a char position (in chars) */
-	lana_int wrte;			/* the offset to the add chars (in chars) */
+	int32 mark;			/* the offset to the mark position (in chars) */
+	int32 read;			/* the offset to the get a char position (in chars) */
+	int32 wrte;			/* the offset to the add chars (in chars) */
 } Position;
 
 /* Buffer structure */
 typedef struct bufferReader {
-	lana_string		content;			/* pointer to the beginning of character array (character buffer) */
-	lana_int		size;				/* current dynamic memory size (in bytes) allocated to character buffer */
-	lana_int		increment;			/* character array increment factor */
-	lana_int		mode;				/* operational mode indicator */
-	lana_int		flags;				/* contains character array reallocation flag and end-of-buffer flag */
-	Position		position;				/* Offset / position field */
-	lana_int		histogram[NCHAR];	/* Statistics of chars */
-	lana_int		numReaderErrors;	/* Number of errors from Reader */
+	string		content;			/* pointer to the beginning of character array (character buffer) */
+	int32		size;				/* current dynamic memory size (in bytes) allocated to character buffer */
+	int32		increment;			/* character array increment factor */
+	int32		mode;				/* operational mode indicator */
+	int32		flags;				/* contains character array reallocation flag and end-of-buffer flag */
+	Position	position;				/* Offset / position field */
+	int32		histogram[NCHAR];	/* Statistics of chars */
+	int32		numReaderErrors;	/* Number of errors from Reader */
 } Buffer, *BufferPointer;
 
 /* FUNCTIONS DECLARATION:  .................................. */
 /* General Operations */
-BufferPointer	readerCreate		(lana_int, lana_int, lana_int);
-BufferPointer	readerAddChar		(BufferPointer const, lana_char);
-lana_int		readerClear		    (BufferPointer const);
-lana_int		readerFree		    (BufferPointer const);
-lana_int		readerIsFull		(BufferPointer const);
-lana_int		readerIsEmpty		(BufferPointer const);
-lana_int		readerSetMark		(BufferPointer const, lana_int);
-lana_int		readerPrint		    (BufferPointer const);
-lana_int		readerLoad			(BufferPointer const, FILE* const);
-lana_int		readerRecover		(BufferPointer const);
-lana_int		readerRetract		(BufferPointer const);
-lana_int		readerRestore		(BufferPointer const);
+BufferPointer	readerCreate		(int32, int32, int32);
+BufferPointer	readerAddChar		(BufferPointer const, rune);
+int32			readerClear		    (BufferPointer const);
+int32			readerFree		    (BufferPointer const);
+int32			readerIsFull		(BufferPointer const);
+int32			readerIsEmpty		(BufferPointer const);
+int32			readerSetMark		(BufferPointer const, int32);
+int32			readerPrint		    (BufferPointer const);
+int32			readerLoad			(BufferPointer const, FILE* const);
+int32			readerRecover		(BufferPointer const);
+int32			readerRetract		(BufferPointer const);
+int32			readerRestore		(BufferPointer const);
 /* Getters */
-lana_char		readerGetChar		(BufferPointer const);
-lana_string		readerGetContent	(BufferPointer const, lana_int);
-lana_int		readerGetPosRead	(BufferPointer const);
-lana_int		readerGetPosWrte	(BufferPointer const);
-lana_int		readerGetPosMark	(BufferPointer const);
-lana_int		readerGetSize		(BufferPointer const);
-lana_int		readerGetInc		(BufferPointer const);
-lana_int		readerGetMode		(BufferPointer const);
-lana_int		readerGetFlags		(BufferPointer const);
-lana_void		readerPrintStat		(BufferPointer const);
-lana_int		readerNumErrors		(BufferPointer const);
+rune		readerGetChar		(BufferPointer const);
+string		readerGetContent	(BufferPointer const, int32);
+int32		readerGetPosRead	(BufferPointer const);
+int32		readerGetPosWrte	(BufferPointer const);
+int32		readerGetPosMark	(BufferPointer const);
+int32		readerGetSize		(BufferPointer const);
+int32		readerGetInc		(BufferPointer const);
+int32		readerGetMode		(BufferPointer const);
+int32		readerGetFlags		(BufferPointer const);
+void		readerPrintStat		(BufferPointer const);
+int32		readerNumErrors		(BufferPointer const);
 
 #endif

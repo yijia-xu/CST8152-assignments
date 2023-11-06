@@ -77,11 +77,11 @@ _|_|_|_|  _|    _|  _|      _|  _|    _|
  *  Function declarations
  * -------------------------------------------------------------
  */
-lana_void bErrorPrint(lana_string fmt, ...);
-lana_void displayBuffer(Buffer* ptr_Buffer);
-lana_long getFileSize(lana_string fname);
-lana_int isNumber(const lana_string ns);
-lana_void startReader(lana_string, lana_string, lana_char, lana_int, lana_int);
+void bErrorPrint(string fmt, ...);
+void displayBuffer(Buffer* ptr_Buffer);
+int64 getFileSize(string fname);
+int32 isNumber(const string ns);
+void startReader(string, string, rune, int32, int32);
 
 /*
 ************************************************************
@@ -93,13 +93,13 @@ lana_void startReader(lana_string, lana_string, lana_char, lana_int, lana_int);
 ************************************************************
 */
 
-lana_int mainReader(lana_int argc, lana_string* argv) {
+int32 mainReader(int32 argc, string* argv) {
 
 	/* Create source input buffer */
-	lana_string program = argv[0];
-	lana_string input = argv[2];
-	lana_char mode = MODE_FIXED;
-	lana_int size = 0, increment = 0, wrongNumber = 0;
+	string program = argv[0];
+	string input = argv[2];
+	rune mode = MODE_FIXED;
+	int32 size = 0, increment = 0, wrongNumber = 0;
 
 	/* Missing file name or/and mode parameter */
 	if (argc <= 2) {
@@ -151,12 +151,12 @@ lana_int mainReader(lana_int argc, lana_string* argv) {
 *	- Increment: buffer increment.
 ************************************************************
 */
-lana_void startReader(lana_string program, lana_string input, lana_char mode, lana_int size, lana_int increment) {
+void startReader(string program, string input, rune mode, int32 size, int32 increment) {
 
 	BufferPointer bufferp;		/* pointer to Buffer structure */
 	FILE* fileHandler;			/* input file handle */
-	lana_int loadSize = 0;		/* the size of the file loaded in the buffer */
-	lana_char symbol;			/* symbol read from input file */
+	int32 loadSize = 0;		/* the size of the file loaded in the buffer */
+	rune symbol;			/* symbol read from input file */
 
 	/* Create buffer */
 	bufferp = readerCreate(size, (lana_char)increment, mode);
@@ -214,7 +214,7 @@ lana_void startReader(lana_string program, lana_string input, lana_char mode, la
 ************************************************************
 */
 
-lana_void bErrorPrint(lana_string fmt, ...) {
+void bErrorPrint(string fmt, ...) {
 	/* Initialize variable list */
 	va_list ap;
 	va_start(ap, fmt);
@@ -235,9 +235,9 @@ lana_void bErrorPrint(lana_string fmt, ...) {
 ************************************************************
 */
 
-lana_long getFileSize(lana_string fname) {
+int64 getFileSize(string fname) {
 	FILE* input;
-	lana_long flength;
+	int64 flength;
 	input = fopen(fname, "r");
 	if (input == NULL) {
 		bErrorPrint("%s%s", "Cannot open file: ", fname);
@@ -259,8 +259,8 @@ lana_long getFileSize(lana_string fname) {
 ************************************************************
 */
 
-lana_int isNumber(const lana_string ns) {
-	lana_char c; lana_int i = 0;
+int32 isNumber(const string ns) {
+	rune c; int32 i = 0;
 	if (ns == NULL) return 0;
 	while ((c = ns[i++]) == 0) {
 		if (!isdigit(c)) return 0;
@@ -275,7 +275,7 @@ lana_int isNumber(const lana_string ns) {
 ************************************************************
 */
 
-lana_void displayBuffer(Buffer* ptr_Buffer) {
+void displayBuffer(Buffer* ptr_Buffer) {
 	printf("\nPrinting buffer parameters:\n\n");
 	printf("The capacity of the buffer is:  %d\n",
 		readerGetSize(ptr_Buffer));

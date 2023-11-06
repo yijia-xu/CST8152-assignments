@@ -67,7 +67,7 @@ _|_|_|_|  _|    _|  _|      _|  _|    _|
 *************************************************************
 */
 
-BufferPointer readerCreate(lana_int size, lana_int increment, lana_int mode) {
+BufferPointer readerCreate(int32 size, int32 increment, int32 mode) {
 	BufferPointer readerPointer;
 	readerPointer = (BufferPointer)calloc(1, sizeof(Buffer));
 	/* TO_DO: Adjust the values according to parameters */
@@ -82,7 +82,7 @@ BufferPointer readerCreate(lana_int size, lana_int increment, lana_int mode) {
 	if (mode != MODE_FIXED && mode != MODE_ADDIT && mode != MODE_MULTI)
 		mode = MODE_FIXED;
 
-	readerPointer->content = (lana_string)malloc(size);
+	readerPointer->content = (string)malloc(size);
 
 	if (!readerPointer->content) {
 		return NULL;
@@ -129,9 +129,9 @@ BufferPointer readerCreate(lana_int size, lana_int increment, lana_int mode) {
 *************************************************************
 */
 
-BufferPointer readerAddChar(BufferPointer const readerPointer, lana_char ch) {
-	lana_string tempReader = NULL;
-	lana_int newSize = 0;
+BufferPointer readerAddChar(BufferPointer const readerPointer, rune ch) {
+	string tempReader = NULL;
+	int32 newSize = 0;
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return NULL;
@@ -140,7 +140,7 @@ BufferPointer readerAddChar(BufferPointer const readerPointer, lana_char ch) {
 
 	readerPointer->flags &= !READER_REL_FLAG;
 	/* TO_DO: Test the inclusion of chars */
-	if (readerPointer->position.wrte * (lana_int)sizeof(lana_char) < readerPointer->size) {
+	if (readerPointer->position.wrte * (int32)sizeof(rune) < readerPointer->size) {
 		/* TO_DO: This buffer is NOT full */
 
 	} else {
@@ -200,7 +200,7 @@ BufferPointer readerAddChar(BufferPointer const readerPointer, lana_char ch) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerClear(BufferPointer const readerPointer) {
+int32 readerClear(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return LANA_FALSE;
@@ -224,7 +224,7 @@ lana_int readerClear(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerFree(BufferPointer const readerPointer) {
+int32 readerFree(BufferPointer const readerPointer) {
 	/* Defensive programming */
 	if (!readerPointer)
 		return LANA_FALSE;
@@ -248,7 +248,7 @@ lana_int readerFree(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerIsFull(BufferPointer const readerPointer) {
+int32 readerIsFull(BufferPointer const readerPointer) {
 	/* Defensive programming */
 	if (!readerPointer)
 		return LANA_FALSE;
@@ -275,7 +275,7 @@ lana_int readerIsFull(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerIsEmpty(BufferPointer const readerPointer) {
+int32 readerIsEmpty(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return LANA_FALSE;
@@ -304,7 +304,7 @@ lana_int readerIsEmpty(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerSetMark(BufferPointer const readerPointer, lana_int mark) {
+int32 readerSetMark(BufferPointer const readerPointer, int32 mark) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return LANA_FALSE;
@@ -330,9 +330,9 @@ lana_int readerSetMark(BufferPointer const readerPointer, lana_int mark) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerPrint(BufferPointer const readerPointer) {
-	lana_int cont = 0;
-	lana_char c;
+int32 readerPrint(BufferPointer const readerPointer) {
+	int32 cont = 0;
+	rune c;
 
 	/* TO_DO: Defensive programming (including invalid chars) */
 	if (!readerPointer)
@@ -368,14 +368,14 @@ lana_int readerPrint(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerLoad(BufferPointer const readerPointer, FILE* const fileDescriptor) {
-	lana_int size = 0;
-	lana_char c;
+int32 readerLoad(BufferPointer const readerPointer, FILE* const fileDescriptor) {
+	int32 size = 0;
+	rune c;
 	/* TO_DO: Defensive programming */
 	if (!readerPointer || fileDescriptor == NULL)
 		return NULL;
 
-	c = (lana_char)fgetc(fileDescriptor);
+	c = (rune)fgetc(fileDescriptor);
 	while (!feof(fileDescriptor)) {
 		if (!readerAddChar(readerPointer, c)) {
 			ungetc(c, fileDescriptor);
@@ -405,7 +405,7 @@ lana_int readerLoad(BufferPointer const readerPointer, FILE* const fileDescripto
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerRecover(BufferPointer const readerPointer) {
+int32 readerRecover(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return LANA_FALSE;
@@ -431,7 +431,7 @@ lana_int readerRecover(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerRetract(BufferPointer const readerPointer) {
+int32 readerRetract(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer || readerPointer->position.read <= 0)
 		return LANA_FALSE;
@@ -456,7 +456,7 @@ lana_int readerRetract(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerRestore(BufferPointer const readerPointer) {
+int32 readerRestore(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer || readerPointer->position.mark < 0)
 		return LANA_FALSE;
@@ -480,7 +480,7 @@ lana_int readerRestore(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_char readerGetChar(BufferPointer const readerPointer) {
+rune readerGetChar(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return NULL;
@@ -515,7 +515,7 @@ lana_char readerGetChar(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_string readerGetContent(BufferPointer const readerPointer, lana_int pos) {
+string readerGetContent(BufferPointer const readerPointer, int32 pos) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return NULL;
@@ -541,7 +541,7 @@ lana_string readerGetContent(BufferPointer const readerPointer, lana_int pos) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerGetPosRead(BufferPointer const readerPointer) {
+int32 readerGetPosRead(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return NULL;
@@ -564,7 +564,7 @@ lana_int readerGetPosRead(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerGetPosWrte(BufferPointer const readerPointer) {
+int32 readerGetPosWrte(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return NULL;
@@ -587,7 +587,7 @@ lana_int readerGetPosWrte(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerGetPosMark(BufferPointer const readerPointer) {
+int32 readerGetPosMark(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return NULL;
@@ -610,7 +610,7 @@ lana_int readerGetPosMark(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerGetSize(BufferPointer const readerPointer) {
+int32 readerGetSize(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return NULL;
@@ -632,7 +632,7 @@ lana_int readerGetSize(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerGetInc(BufferPointer const readerPointer) {
+int32 readerGetInc(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return NULL;
@@ -654,7 +654,7 @@ lana_int readerGetInc(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerGetMode(BufferPointer const readerPointer) {
+int32 readerGetMode(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return NULL;
@@ -679,7 +679,7 @@ lana_int readerGetMode(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerGetFlags(BufferPointer const readerPointer) {
+int32 readerGetFlags(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return NULL;
@@ -701,7 +701,7 @@ lana_int readerGetFlags(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_void readerPrintStat(BufferPointer const readerPointer) {
+void readerPrintStat(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return;
@@ -727,7 +727,7 @@ lana_void readerPrintStat(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-lana_int readerNumErrors(BufferPointer const readerPointer) {
+int32 readerNumErrors(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	if (!readerPointer)
 		return NULL;

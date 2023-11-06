@@ -81,17 +81,11 @@ NOTE: Some types may not be directly used by your language,
 
 
 /* TO_DO: Define your typedefs */
-typedef char			lana_char;
-typedef char*			lana_string;
-typedef int				lana_int;
-typedef float			lana_float64;
-typedef void			lana_void;
-
-//typedef unsigned char	sofia_boln;
-//typedef unsigned char	sofia_byte;
-
-typedef long			lana_long;
-//typedef double			sofia_doub;
+typedef char			rune;
+typedef char*			string;
+typedef int				int32;
+typedef float			float32;
+typedef long			int64;
 
 /*
 ------------------------------------------------------------
@@ -113,11 +107,11 @@ Main functions signatures
 (Code will be updated during next assignments)
 ------------------------------------------------------------
 */
-lana_int main(int argc, char** argv);
+int32 main(int argc, char** argv);
 
 /* 
 TO_DO: Include later mainScaner (A22) and mainParser (A32)
 */
-lana_void printLogo();
+void printLogo();
 
 #endif
