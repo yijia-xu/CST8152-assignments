@@ -1,0 +1,15 @@
+/*
+Lana Example
+The program is lexically correct about the LANA city 
+*/
+func main() {
+	int32 FoundationYear;
+	float32 Area, HDI;
+	string CountryName;
+
+	FoundationYear = -7000;
+	Area = 492.0;
+	HDI = 0.871;
+	CountryName = "Bulgary";
+	print(CountryName);
+}

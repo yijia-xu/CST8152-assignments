@@ -1,0 +1,18 @@
+/* Lana Example 4:
+  Testing numbers (ex: factorial) */
+func main() {
+    int i, n, f;
+	
+    f=1;
+    i=1;
+    print("Write a number:");
+    input(n);
+    while (i<n) 
+	do {
+        f = f * i;
+        i = i + 1;
+    };
+    print("Factorial:");
+    print(f);
+ 
+}
