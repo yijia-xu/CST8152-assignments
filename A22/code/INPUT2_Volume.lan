@@ -2,7 +2,6 @@
   Volume of a sphere */
 func main() {
 	float32 PI, r, Vol;
-	
 	PI = 3.14;
 	input(r);
 	Vol = 4.0 / 3.0 * PI * (r * r * r);
