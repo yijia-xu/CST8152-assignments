@@ -1,7 +1,7 @@
 /* Lana Example
 The program is "lexically" correct and should not generate any error (based on Platypus from Svillen Ranev) */
 func main() {
-	int i;
+	int32 i;
 	float32 a, sum008;
 	string text;
 
