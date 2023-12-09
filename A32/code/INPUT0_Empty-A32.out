@@ -1,0 +1,32 @@
+/*
+************************************************************
+* COMPILERS COURSE - Algonquin College
+* Code version: Fall, 2023
+* Author: Yijia Xu 041061204
+* Professors: Paulo Sousa
+************************************************************
+=---------------------------------------=
+|  COMPILERS - ALGONQUIN COLLEGE (F23)  |
+=---------------------------------------=
+
+_|          _|_|    _|      _|    _|_|
+_|        _|    _|  _|_|    _|  _|    _|
+_|        _|_|_|_|  _|  _|  _|  _|_|_|_|
+_|        _|    _|  _|    _|_|  _|    _|
+_|_|_|_|  _|    _|  _|      _|  _|    _|
+*/
+
+[Option 'p': Starting SCANNER ....]
+
+Reading file INPUT0_Empty.lan ....Please wait
+
+Parsing the source file...
+
+Lana: Source file parsed
+
+Number of Parser errors: 0
+Statistics:
+----------------------------------
+----------------------------------
+
+Collecting garbage...

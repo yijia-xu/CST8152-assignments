@@ -1,0 +1,33 @@
+/* Lana Example
+The program is "lexically" correct and should not generate any error (based on Platypus from Svillen Ranev) */
+func main() {
+	int32 i;
+	float32 a, sum008;
+	string text;
+
+	a=+1.2;
+	sum008 = 7.87050 ;
+	Scan(a,sum008);
+	i=0;
+	for i < 32767 | i == 32767
+	{
+		i = i + 2;
+		a = a * i/0.5 ;
+		sum008 = sum008 + a - 1 ;
+	}
+	if text == "" {
+		text = "prog" + "ram";
+	}
+	else {
+		text = text + "ram";
+	}
+	
+	Println("\* This is a program -:)-<-<-- \*");
+	Println(text);
+	if text != "program" & sum008==8.0 | i>10 {
+		Println(sum008);
+		Println();
+	}
+	else{}
+	
+}
