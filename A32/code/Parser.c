@@ -300,8 +300,6 @@ void varListPrime() {
 	default:
 		break;
 	}
-	printf("%s%s\n", STR_LANGNAME, ": Variable List parsed");
-	
 }
 
 
@@ -531,6 +529,7 @@ void assignmentExpression() {
 		printError();
 		break;
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Assignment expression parsed");
 }
 
 void assignmentStatement() {
@@ -566,16 +565,14 @@ void arithmeticExpression() {
 	switch (lookahead.code)
 	{
 	case ARI_T:
-		switch (lookahead.attribute.arithmeticOperator)
-		{
-		case OP_MUL:
-		case OP_DIV:
-			printError();
-			return;
+		switch (lookahead.attribute.arithmeticOperator) {
+		case OP_ADD:
+		case OP_SUB:
+			unaryArithmeticExpression();
+			break;
 		default:
 			break;
 		}
-		unaryArithmeticExpression();
 		break;
 	case INL_T:
 	case FPL_T:
@@ -650,12 +647,23 @@ void additiveArithmetic_ePrime() {
 	switch (lookahead.code)
 	{
 	case ARI_T:
-		if (lookahead.attribute.arithmeticOperator == OP_ADD || lookahead.attribute.arithmeticOperator == OP_MUL) {
-			matchToken(ARI_T, lookahead.attribute.arithmeticOperator);
-			additiveArithmeticExpression();
+		switch (lookahead.attribute.arithmeticOperator) {
+		case OP_ADD:
+			matchToken(ARI_T, OP_ADD);
+			if (lookahead.code == STR_T) {
+				stringExpression();
+			}
+			else {
+				multiplicativeArithmeticExpression();
+				additiveArithmetic_ePrime();
+			}
+			break;
+		case OP_SUB:
+			matchToken(ARI_T, OP_SUB);
+			multiplicativeArithmeticExpression();
 			additiveArithmetic_ePrime();
+			break;
 		}
-		break;
 	default:
 		break;
 	}
@@ -691,13 +699,11 @@ void logical_OR_Expression() {
 }
 
 void logical_OR_ePrime() {
-	psData.parsHistogram[BNF_logicalORExpressionPrime]++;
 	if (lookahead.code == LOG_T) {
 		if (lookahead.attribute.logicalOperator == OP_OR){
 			matchToken(LOG_T, OP_OR);
 			logical_AND_Expression();
 			logical_OR_ePrime();
-			printf("%s%s\n", STR_LANGNAME, ":  Logical OR expression prime parsed");
 		}
 	}
 }
@@ -710,14 +716,12 @@ void logical_AND_Expression() {
 }
 
 void logical_AND_ePrime() {
-	psData.parsHistogram[BNF_logicalANDExpressionPrime]++;
 	switch (lookahead.code) {
 	case LOG_T:
 		if (lookahead.attribute.logicalOperator == OP_AND) {
 			matchToken(LOG_T, OP_AND);
 			relationalExpression();
 			logical_AND_ePrime();
-			printf("%s%s\n", STR_LANGNAME, ":  Logical AND expression prime parsed");
 		}
 		break;
 	}
@@ -754,6 +758,8 @@ void relationalExpression(){
 			case OP_EQ:
 				matchToken(REL_T, OP_EQ);
 				break;
+			case OP_NE:
+				matchToken(REL_T, OP_NE);
 			}
 			primary_a_RelationalExpression();
 			break;
@@ -777,6 +783,9 @@ void primary_a_RelationalExpression() {
 		break;
 	case VID_T:
 		matchToken(VID_T, NO_ATTR);
+		break;
+	case STR_T:
+		matchToken(STR_T, NO_ATTR);
 		break;
 	default:
 		printError();
@@ -804,13 +813,18 @@ void primaryStringExpression() {
 }
 
 void stringExpressionPrime() {
-	psData.parsHistogram[BNF_stringExpressionPrime]++;
-	if (lookahead.code == OP_ADD) {
-		matchToken(OP_ADD, NO_ATTR);
-		primaryStringExpression();
-		stringExpressionPrime();
+	switch (lookahead.code)
+	{
+	case ARI_T:
+		if (lookahead.attribute.arithmeticOperator == OP_ADD) {
+			matchToken(ARI_T, OP_ADD);
+			primaryStringExpression();
+			stringExpressionPrime();
+		}
+		break;
+	default:
+		break;
 	}
-	printf("%s%s\n", STR_LANGNAME, ": String expression prime parsed");
 }
 
 void stringExpression() {

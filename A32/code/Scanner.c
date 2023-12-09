@@ -253,14 +253,18 @@ Token tokenizer(void) {
 			}
 		// logical operators
 		case '|':
-			currentToken.code = LOG_T;
-			scData.scanHistogram[currentToken.code]++;
-			currentToken.attribute.logicalOperator = OP_OR;
+			if (readerGetChar(sourceBuffer) == '|') {
+				currentToken.code = LOG_T;
+				scData.scanHistogram[currentToken.code]++;
+				currentToken.attribute.logicalOperator = OP_OR;
+			}
 			return currentToken;
 		case '&':
-			currentToken.code = LOG_T;
-			scData.scanHistogram[currentToken.code]++;
-			currentToken.attribute.logicalOperator = OP_AND;
+			if (readerGetChar(sourceBuffer) == '&') {
+				currentToken.code = LOG_T;
+				scData.scanHistogram[currentToken.code]++;
+				currentToken.attribute.logicalOperator = OP_AND;
+			}
 			return currentToken;
 	
 		/* Cases for END OF FILE */
